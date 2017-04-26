@@ -29,6 +29,6 @@ class LegoModel (var jmodel : Json, var GO : BrainScowl) {
     sm.generate()
   }
   // TODO - add ontology level annotations:
-  owl_model.save(syngo_id + ".owl", "ttl")
+  owl_model.save(syngo_id + ".owl")  // TODO- switch to ttl output.
   owl_model.sleep()
 }
