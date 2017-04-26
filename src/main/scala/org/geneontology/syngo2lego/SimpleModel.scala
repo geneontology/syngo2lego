@@ -85,39 +85,30 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
 //                  ]
 //               },
  
-  def gen_annotation_inds(evj: Json): Set[OWLNamedIndividual] = {
+  def gen_annotations(evj: Json): Set[OWLAnnotation] = {
     // Generate a set of individuals to be attached to edges as evidence
-  val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
-  val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
-  val contributor = jmodel.username.as[String]
-  val source = "PMID:" + jmodel.pmid.as[String]
-  // Should probably add these to the ontology too - but feels like wrong place to do it.
-///  this.ont.add_axiom(ont.ontology Annotation(dc_source, source))
-   var out = Set[OWLNamedIndividual]()  
-     for ((k,v) <- jmodel.evidence.as[Map[String, Json]]) {
-     // How to interpolate object names here !?!:
-       for (eco <- v.as[List[List[String]]]) {  // Temporary fix for https://github.com/geneontology/synapse/issues/130
-         val ann = new_typed_ind(obo_ns + eco(0).replace(":", "_")) // Temporary fix for https://github.com/geneontology/synapse/issues/130
-         this.ont.add_axiom(ann Annotation (dc_source, source)) 
-         this.ont.add_axiom(ann Annotation (dc_contributor, contributor)) 
-         out += ann
-       }
-     }
-   return out
-  }
-  
-  
-  def annotate_edge_with_evidence(edge: OWLAxiom, evidence_set: Set[OWLNamedIndividual] ) { 
+    val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
+    val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
+    val contributor = jmodel.username.as[String]
+    val source = "PMID:" + jmodel.pmid.as[String]
     val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")
-    for (e <- evidence_set) {
-      this.ont.add_axiom(edge Annotation(evidence, e.getIRI)) // BUG won't take ind e!
-    // https://github.com/phenoscape/scowl/issues/9
-    //   (Man SubClassOf Person) Annotation (RDFSComment, "States that every man is a person.")
-    //  Functional: harder to work with in a fn! (s Fact (part_of, o) Annotation (evidence, atest))
-   }
-  }
+    // Should probably add these to the ontology too - but feels like wrong place to do it.
+  ///  this.ont.add_axiom(ont.ontology Annotation(dc_source, source))
+     var out = Set[OWLAnnotation]()  
+       for ((k,v) <- jmodel.evidence.as[Map[String, Json]]) {
+       // How to interpolate object names here !?!:
+         for (eco <- v.as[List[List[String]]]) {  // Temporary fix for https://github.com/geneontology/synapse/issues/130
+           val ann = new_typed_ind(obo_ns + eco(0).replace(":", "_")) // Temporary fix for https://github.com/geneontology/synapse/issues/130
+           this.ont.add_axiom(ann Annotation (dc_source, source)) 
+           this.ont.add_axiom(ann Annotation (dc_contributor, contributor)) 
+           out += Annotation(evidence, ann)
+         }
+       }
+     return out
+    }
   
-  val annotations = gen_annotation_inds(jmodel.evidence)
+  
+  val annotations = gen_annotations(jmodel.evidence)
   
  // primary entity   
   // Add extensions
@@ -127,26 +118,20 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
     // TBA: Axiom annotation.
       val gp =  new_gp()
       val primary_ind = new_primary_ind()
-      
+   // ObjectPropertyAssertion(annotations, loves, Aya, Freddy)     // For ref
     if (primary_aspect == "cellular_component") {
       val mfi = new_mfi()
       this.ont.add_axiom(mfi Fact (enabled_by, gp))
-      val primary_edge = mfi Fact (occurs_in, primary_ind)
-      this.annotate_edge_with_evidence(primary_edge, annotations)
-      this.ont.add_axiom(primary_edge)
+      this.ont.add_axiom(ObjectPropertyAssertion(annotations, occurs_in, mfi, primary_ind))
     }
     if (primary_aspect == "molecular_function") {
-      val primary_edge = primary_ind Fact (enabled_by, gp)
-      this.annotate_edge_with_evidence(primary_edge, annotations)
-      this.ont.add_axiom(primary_edge)    
+      this.ont.add_axiom(ObjectPropertyAssertion(annotations, enabled_by, primary_ind, gp))       
     }  
   //    this.ont.add_axiom(ObjectPropertyAssertion(annotations, gp, occurs_in, mfi)  Ask!
     if (primary_aspect == "biological_process") {
       val mfi = new_mfi()
       this.ont.add_axiom(mfi Fact (enabled_by, gp))
-      val primary_edge = mfi Fact (part_of, primary_ind)
-      this.annotate_edge_with_evidence(primary_edge, annotations)
-      this.ont.add_axiom(primary_edge) 
+      this.ont.add_axiom(ObjectPropertyAssertion(annotations, part_of, mfi, primary_ind))
     }
   return primary_ind
   }

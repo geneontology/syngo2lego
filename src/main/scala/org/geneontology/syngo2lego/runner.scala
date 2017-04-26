@@ -10,7 +10,7 @@ object runner extends(App) {
   // Generates individual OWL files from each model
    /** Takes 1 arg: path to synGO JSON file. */
       if (args.length == 1) {
-      val go = new BrainScowl("resources/go-simple.owl")  
+      val go = new BrainScowl("resources/go-simple.ofn")  
       val synGO_file = Source.fromFile(args(0)).getLines.mkString
       val synGO_json = Json.parse(synGO_file)
     // At this point - should run check of json
