@@ -1,0 +1,584 @@
+{
+   "SynGO": [
+      {
+         "model_id": "SYNGO:38",
+         "models": [
+            {
+               "goTerm": "GO:0098888",
+               "regulates": false,
+               "annotationid": 38,
+               "uniprot": "P60879",
+               "extensions": [
+               ],
+               "username": "ruud",
+               "pmid": "23821748",
+               "comments": {
+                  "species": "Support info: \"Wild-Type Primary **Mouse** Neuronal Cultures. Animal protocols used in this study, as well as the overall **mouse** husbandry practices,\"\n\n13/2/2017 Pim\n-\"We imaged the distribution of the **endogenous** SNARE proteins SNAP-25 and syntaxin-1 in cultured neurons by direct immunofluorescence (Figs. 2 and 3)\"",
+                  "rationale": "improved two-color fluorescence nanoscopy showed nanoscale clusters consisting of syntaxin-1 and SNAP-25 that contained associated Munc18-1 at presynaptic plasmamembrane\n\n8/12/2016 Pim\n- Cortical neurons were used (Suppl info: \" **Cortices** from newborn mouse pups were dissected in ice-cold Hank\u2019s Balanced Salt Solution \")",
+                  "general": [
+                     {
+                        "username": "pim",
+                        "text": "8/12/2016 Pim\r\n- This sentence (\"... localizations show that upon deletion of both syntaxin-1 isoforms, SNAP-25 remains localized on the membrane whereas Munc18-1 is mostly distributed in the cytoplasm....\") in the text from Fig.4 suggest to me that \"presynaptic cytosol\" is not the correct term. Can you explain your choice?\r\n- Added \"cerebral cortex\" to \"Additional information\" fields",
+                        "timestamp": "2016-12-26 07:20:51"
+                     },
+                     {
+                        "username": "ruud",
+                        "text": "You are right, my bad: presynaptic membrane of course",
+                        "timestamp": "2017-02-13 08:32:37"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Allright. One other matter. SNAP25 has a S-palmitoyl moiety that originally was thought to mediate the interaction of SNAP-25 with membranes, but when tested appeared not to do so (see PMID: 10644766). I have proposed to make the term &#39;extrinsic component of presynaptic membrane&#39; (a.k.a. &#39;connected to membrane via interaction with other protein&#39;) to reflect this. I have also added this ref to the &#39;additional literature&#39;. When you agree with this change I finalize this ticket.\n\nChanges by checker: \n- Changed &#39;presynaptic membrane (GO:0042734)&#39; to &#39;extrinsic component of presynaptic membrane (GO:0098888)&#39; in field goTerm\n- Changed &#39;Support info: \"Wild-Type Primary **Mouse** Neuronal Cultures. Animal protocols used in this study, as well as the overall **mouse** husbandry practices,\"&#39; to &#39;Support info: \"Wild-Type Primary **Mouse** Neuronal Cultures. Animal protocols used in this study, as well as the overall **mouse** husbandry practices,\" 13/2/2017 Pim -\"We imaged the distribution of the **endogenous** SNARE proteins SNAP-25 and syntaxin-1 in cultured neurons by direct immunofluorescence (Figs. 2 and 3)\"&#39; in field speciesRationale\n- Added supporting literature, PMID:10644766",
+                        "timestamp": "2017-02-14 07:40:36"
+                     },
+                     {
+                        "username": "ruud",
+                        "text": "agree",
+                        "timestamp": "2017-02-13 14:06:56"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Ok, closing!",
+                        "timestamp": "2017-02-14 07:40:36"
+                     }
+                  ]
+               },
+               "goDomain": "CC",
+               "evidence": {
+                  "system": [
+                     [
+                        "ECO:0005014"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0006004"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "target:antibody"
+                     ]
+                  ]
+               },
+               "figures": "Fig 3"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:80",
+         "models": [
+            {
+               "goTerm": "GO:0099635",
+               "regulates": true,
+               "annotationid": 80,
+               "uniprot": "Q03114",
+               "extensions": [
+                  {
+                     "occurs_in": [
+                        "UBERON:0002421"
+                     ]
+                  }
+               ],
+               "username": "ryan",
+               "pmid": "23699505",
+               "comments": {
+                  "species": "Hippocampal CA3\u2013CA1 regions were dissected from 1- to 2-d-old Sprague Dawley rats, dissociated, and plated onto poly-ornithine-coated glass for 14\u201321 d as described previously (Ryan, 1999).",
+                  "rationale": "Combination of knock down and pharmacological inhibitions along with function measures of presynaptic calcium influx shows that CDK5 normally constrains the activity of voltage-gated Ca channels.\n\n23/01/2017 Pim\n- Fig.1 KD of CNa has negative effect on SV exocytosis\n- Fig.2 KD/agonist of CDK5 has positive effect on SV exocytosis\n- Fig.2 Effect of CDK5 and CNa is via VGCCs (shown via VGCC inhibition)\n- Fig.3/4/5/6 CNa and CDK5 activities affect presynaptic Ca influx",
+                  "general": [
+                     {
+                        "username": "pim",
+                        "text": "Great annotation! I have selected the \"regulation of ...\" box since CDK5 regulates the activity of the Ca-channel via phosphorylation.",
+                        "timestamp": "2017-01-23 11:19:51"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Question:\r\nWould it also be correct to make the same annotation for  calcineurin A??",
+                        "timestamp": "2017-01-23 17:48:14"
+                     },
+                     {
+                        "username": "ryan",
+                        "text": "Hi - I plan to put a separate entry for Calcineurins - there are 5 related genes in total (2 regulatory, 3 catalytic). Calcineurin A generally refers to the catalyic subunits. I agree with your regulation selection",
+                        "timestamp": "2017-01-30 21:53:53"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Ok, finalizing this ticket based on feedback.",
+                        "timestamp": "2017-02-03 11:08:32"
+                     }
+                  ]
+               },
+               "goDomain": "BP",
+               "evidence": {
+                  "system": [
+                     [
+                        "ECO:0005014"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0006039"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "target:rnai"
+                     ],
+                     [
+                        "target:antibody"
+                     ]
+                  ]
+               },
+               "figures": "3D-E, 6G"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:138",
+         "models": [
+            {
+               "goTerm": "GO:0098993",
+               "regulates": false,
+               "annotationid": 138,
+               "uniprot": "O35509",
+               "extensions": [
+                  {
+                     "part_of": [
+                        "UBERON:0001869"
+                     ]
+                  },
+                  {
+                     "part_of": [
+                        "UBERON:0002421"
+                     ]
+                  }
+               ],
+               "username": "chua",
+               "pmid": "20926670",
+               "comments": {
+                  "species": "Legend to Figure 2 \"Enrichment profiles of Rab GTPases on purified SVs isolated from rat brain homogenates, determined by quantitative immunoblotting\"\n\nSpecies of OE Rab11B in Fig 3 is human. Other figures show localization of rat protein. Annotation accepted against rat species.",
+                  "rationale": "RAB11B was detected on highly purified synaptic vesicles using mass spectrometric and immunoblot analyses. GFP-RAB11B colocalises well with synaptophysin puncta in transiently transfected cultured hippocampal neurons.",
+                  "general": [
+                     {
+                        "username": "pim",
+                        "text": "Implementation note:\r\n- &#39;cerebrum&#39; relates to the Biochem. studies.\r\n- &#39;hippocampus&#39; related to the microscopy studies.",
+                        "timestamp": "2017-02-03 09:17:29"
+                     }
+                  ]
+               },
+               "goDomain": "CC",
+               "evidence": {
+                  "system": [
+                     [
+                        "biosys:intacttissue"
+                     ],
+                     [
+                        "ECO:0005014"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "MAXP:ECO:0005598"
+                     ],
+                     [
+                        "ECO:0000279",
+                        "MAXP:ECO:0000004"
+                     ],
+                     [
+                        "ECO:0001230",
+                        "MAXP:ECO:0000004"
+                     ],
+                     [
+                        "MAXP:ECO:0000004"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "target:antibody"
+                     ]
+                  ]
+               },
+               "figures": "Table 1; Figs 1, 2 and 3"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:113",
+         "models": [
+            {
+               "goTerm": "GO:0016082",
+               "regulates": false,
+               "annotationid": 113,
+               "uniprot": "Q9EQZ7",
+               "extensions": [
+                  {
+                     "occurs_in": [
+                        "UBERON:0002421",
+                        "GABAergic"
+                     ]
+                  }
+               ],
+               "username": "kaeser",
+               "pmid": "22753485",
+               "comments": {
+                  "species": "Primary hippocampal neuronal cultures were prepared from newborn pups of RIM1\u03b1\u03b2f/f, RIM2\u03b1\u03b2\u03b3f/f, or RIM1\u03b1\u03b2f/f/RIM2\u03b1\u03b2\u03b3f/f mice according to standard protocols (4, 21).",
+                  "rationale": "RIM2 knockout cultures have a reduction in the size of the sucrose pool at inhibitory synapses, demonstrating a role for RIM2 in vesicle priming.  Due to the strong homology between RIM1 and RIM2, both proteins are assumed to be redundant in this process. Action potential mediated pool measurements have confirmed a role in priming for RIM1 and RIM2 at the Calyx of Held (Han et.al. 2011).",
+                  "general": [
+                     {
+                        "username": "pim",
+                        "text": "Finalized!\n\nchanges by checker: \n- added &#39;IGI: Q99NE5 (mouse RIM1)&#39; to field implementationComments",
+                        "timestamp": "2017-02-10 11:35:02"
+                     }
+                  ]
+               },
+               "goDomain": "BP",
+               "evidence": {
+                  "system": [
+                     [
+                        "ECO:0005014"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0006015"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "ECO:0001225"
+                     ]
+                  ]
+               },
+               "figures": "supplemental figure 4"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:164",
+         "models": [
+            {
+               "goTerm": "GO:0060074",
+               "regulates": false,
+               "annotationid": 164,
+               "uniprot": "Q9VQQ9",
+               "extensions": [
+               ],
+               "username": "ruud",
+               "pmid": "12575951",
+               "comments": {
+                  "species": "Fig2: sec5E10 larvae, between 72 and 96 hr AEL have no detectable Sec5 protein",
+                  "rationale": "Fig 3: Loss of Sec5 Prevents Growth of the Neuromuscular Junction\nFig 4: Sec5 Is Required for Neurite Outgrowth\nFig 5: Transport of an Integral Membrane Protein (CD8) to the Cell Surface Is Impaired in sec5 Mutants, not intracellular trafficking\nFig 6: Sec5 was not required for axonal transport of the CD8-containing vesicles but null mutant show strongly reduced surface expression of CD8 and Synaptotagmin-GFP (Fig 7).\nFig 8: Synaptic Transmission Persists in sec5 Null Mutants\nHence, trafficking for cell growth and membrane protein insertion depend on sec5, whereas transmitter secretion does not\n\n13/2/2017 Pim:\n-Reading the abstract, the authors suggest that Sec5 is mediating membrane transport/insertion associated with synapse maturation (especially expansion of NMJ). \n-From this scentence (Fig.3): \"However, sec5E10 mutant larvae do not grow substantially between 48 and 96 hr AEL. Because maternal protein decreases dramatically during larval development in the mutant, we looked for any aberrations in the postembryonic maturation of the NMJ.\" --> &#39;synapse maturation&#39;\n-From Fig.5+6+7: Sec5 mediates vesicular axonal transport of TM proteins --> \"[GO:0099641] anterograde axonal protein transport\"",
+                  "general": [
+                     {
+                        "username": "ruud",
+                        "text": "Difficult to pick GO term: it is not axonal trafficking, also not SV fusion but fusion of vesicles essential for neurite growth and synapse formation. please advice",
+                        "timestamp": "2017-02-13 11:04:15"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Reading the abstract, the authors suggest that Sec5 is mediating membrane transport/insertion associated with synapse maturation (especially expansion of NMJ). \n\nFrom this scentence (Fig.3): \"However, sec5E10 mutant larvae do not grow substantially between 48 and 96 hr AEL. Because maternal protein decreases dramatically during larval development in the mutant, we looked for any aberrations in the postembryonic maturation of the NMJ.\" --> &#39;synapse maturation&#39;\n\nFrom Fig.5+6+7: Sec5 mediates vesicular axonal transport of TM proteins --> \"[GO:0099641] anterograde axonal protein transport\"\n\nThe final implementation will look equivalent to \"anterograde axonal protein transport regulating synapse maturation results_in_morphogenesis_of NMJ\"\n\nIf you agree with this solution I finalize this ticket...\n\nchanges by checker: \n- added &#39;Q9VQQ9&#39; to field uniprot \n- changed &#39;** cannot find term **&#39; to &#39;synapse maturation (GO:0060074)&#39; in field goTerm",
+                        "timestamp": "2017-02-14 07:38:35"
+                     },
+                     {
+                        "username": "ruud",
+                        "text": "agree!",
+                        "timestamp": "2017-02-13 14:05:55"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Ok closing!",
+                        "timestamp": "2017-02-14 07:38:35"
+                     }
+                  ]
+               },
+               "goDomain": "BP",
+               "evidence": {
+                  "system": [
+                     [
+                        "biosys:intacttissue"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0005589"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "ECO:0001225"
+                     ]
+                  ]
+               },
+               "figures": "Fig 3-8"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:110",
+         "models": [
+            {
+               "goTerm": "GO:1905056",
+               "regulates": false,
+               "annotationid": 110,
+               "uniprot": "P20020",
+               "extensions": [
+                  {
+                     "occurs_in": [
+                        "UBERON:0000955",
+                        "Glutamatergic"
+                     ]
+                  },
+                  {
+                     "occurs_in": [
+                        "UBERON:0000955",
+                        "GABAergic"
+                     ]
+                  }
+               ],
+               "username": "gundelfinger",
+               "pmid": "18029012",
+               "comments": {
+                  "species": "HeLa cells were cultured in Dulbecco\u2019s-modified Eagle\u2019s Medium. p. 551",
+                  "rationale": "The primary PMID shows regulation of human PMCA1 activity, the inference shows the occurence of PMCA1 at presynaptic active zone by proteomics.\n\n26/01/2017 Pim\nInference:\n18029012 Fig.6: shows IDA of \"regulation of cytosolic calcium levels\" of human AT2B1\nSynGO ID#89: shows localization of rat AT2B1 in the AZ membrane of GABA and Glutamate synapses.\nknown info: AT2B1 is a ATP-fueled calcium pump.",
+                  "general": [
+                     {
+                        "username": "gundelfinger",
+                        "text": "Synapse types are infered from SynGO ID 89.",
+                        "timestamp": "2017-01-19 11:48:26"
+                     }
+                  ]
+               },
+               "goDomain": "BP",
+               "evidence": {
+                  "system": [
+                     [
+                        "biosys:nonneuron"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0006039"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "target:overexpression"
+                     ]
+                  ]
+               },
+               "figures": "Figs. 6"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:132",
+         "models": [
+            {
+               "goTerm": "GO:0099523",
+               "regulates": false,
+               "annotationid": 132,
+               "uniprot": "Q69ZP3",
+               "extensions": [
+                  {
+                     "part_of": [
+                        "UBERON:0001950"
+                     ]
+                  }
+               ],
+               "username": "verhage",
+               "pmid": "25730884",
+               "comments": {
+                  "species": "In Fig2 legend: \"Lowicryl postembedding electron microscopy was applied to localize PNKD in the neocortex of wild-type and Pnkd\u2212/\u2212 mice.\"",
+                  "rationale": "immuno-EM study on this protein shows cytosolic localisation of protein. Null mutant mice are using as (strong) control for non-specific reactivity.",
+                  "general": []
+               },
+               "goDomain": "CC",
+               "evidence": {
+                  "system": [
+                     [
+                        "biosys:intacttissue"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0006003"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "target:antibody"
+                     ]
+                  ]
+               },
+               "figures": "Fig 2a-d"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:50",
+         "models": [
+            {
+               "goTerm": "GO:0031629",
+               "regulates": false,
+               "annotationid": 50,
+               "uniprot": "P63011",
+               "extensions": [
+                  {
+                     "occurs_in": [
+                        "UBERON:0002421"
+                     ]
+                  }
+               ],
+               "username": "chua",
+               "pmid": "9194562",
+               "comments": {
+                  "species": "\"Low-density microisland cultures of hippocampal pyramidal neurons were prepared from E15\u2013E17 wild-type, rab3A-mutant and synaptotagmin I mutant mouse embryos as described.\"",
+                  "rationale": "Increased average peak quantal release per synapse in rab3a KO neurons treated with either MK-801 or AP5 and enhanced paired-pulse facilitation in these neurons indicate a higher quantal release per synapse (i.e. more synaptic vesicles fuse per synapse) during stimulation.\r\n\r\n19/01/2017 Pim\r\nThis annotation build s on well established information that rab3a is a protein attached to the SV membrane.",
+                  "general": [
+                     {
+                        "username": "pim",
+                        "text": "-Added \"hippocampus\" to synapse type information\r\n-added info to description",
+                        "timestamp": "2017-01-20 11:09:30"
+                     }
+                  ]
+               },
+               "goDomain": "BP",
+               "evidence": {
+                  "system": [
+                     [
+                        "ECO:0005014"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0000164"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "ECO:0001225"
+                     ]
+                  ]
+               },
+               "figures": "Fig 4"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:92",
+         "models": [
+            {
+               "goTerm": "GO:0098831",
+               "regulates": false,
+               "annotationid": 92,
+               "uniprot": "O88778",
+               "extensions": [
+                  {
+                     "part_of": [
+                        "UBERON:0002421",
+                        "Glutamatergic"
+                     ]
+                  }
+               ],
+               "username": "gundelfinger",
+               "pmid": "9679147",
+               "comments": {
+                  "species": "Electron micrographs of ultrathin sections of rat brain (A\u2013C) and agarose-embedded synaptosomal preparations (D\u2013F) are shown. p. 506",
+                  "rationale": "EM localization after peroxidase reaction at the active zone of A) mossy fibre terminals in the CA3, B) active zone of the shaft synapse in CA3, C) immunoreactivity in shaft synapse of the molecular layer of CA3, D,E) ultrastructural localization of Bassoon in isolated nerve terminals by immunogold EM.",
+                  "general": [
+                     {
+                        "username": "gundelfinger",
+                        "text": "First clear localization of Bassoon specifically at the active zone as a component of the cytomatrix of the active zone.\r\n",
+                        "timestamp": "2017-01-17 17:03:12"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Just to make sure. Uniprot mentions that Bassoon has a lipid anchor (on rat BSN Glycine 2). Is BSN a membrane anchored protein?",
+                        "timestamp": "2017-01-26 14:11:55"
+                     },
+                     {
+                        "username": "gundelfinger",
+                        "text": "We know that Bsn may be myristoylated, however, we never could find a function for this and we do not know if it is indeed anchored to synaptic plasma membrane or synaptic vesicles. Please, check Dresbach et al., 2003 PMID 12812759.",
+                        "timestamp": "2017-02-02 20:37:29"
+                     },
+                     {
+                        "username": "pim",
+                        "text": "Ok, I will leave the term as is and not change into the \"anchored component of AZ membrane\".",
+                        "timestamp": "2017-02-03 11:06:43"
+                     }
+                  ]
+               },
+               "goDomain": "CC",
+               "evidence": {
+                  "system": [
+                     [
+                        "biosys:intacttissue"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0006003"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "target:antibody"
+                     ]
+                  ]
+               },
+               "figures": "Fig. 7"
+            }
+         ]
+      },
+      {
+         "model_id": "SYNGO:203",
+         "models": [
+            {
+               "goTerm": "GO:0098999",
+               "regulates": false,
+               "annotationid": 203,
+               "uniprot": "Q9WV80",
+               "extensions": [
+                  {
+                     "part_of": [
+                        "UBERON:0002421"
+                     ]
+                  }
+               ],
+               "username": "vanweering",
+               "pmid": "24261326",
+               "comments": {
+                  "species": "our wild-type eight-week-old male C57BL/6N mice were perfused transcardially with 4% paraformaldehyde/0.1 M sodium phosphate buffer (PB, pH 7.2) for light microscopic immuno- histochemistry or with 4% paraformaldehyde/0.1% glutaraldehyde/ 0.1 M PB for immunoelectron microscopy.",
+                  "rationale": "Quantitative immunogold reactivity against SNX1 in mouse hippocampal pyramidal neurons shows a predominant postsynaptic distribution. SNX1 is localized to endosome membranes, but the subclass of endosome (early/late/recycling) is not unambiguously determined",
+                  "general": [
+                     {
+                        "username": "pim",
+                        "text": "Great first annotation! Keep up this quality.\n\nchanges by checker:\n- added &#39;Q9WV80&#39; to field uniprot\n- changed &#39;submitted&#39; to &#39;finalized&#39; in field status",
+                        "timestamp": "2017-02-20 08:42:45"
+                     }
+                  ]
+               },
+               "goDomain": "CC",
+               "evidence": {
+                  "system": [
+                     [
+                        "biosys:intacttissue"
+                     ]
+                  ],
+                  "assay": [
+                     [
+                        "ECO:0006003"
+                     ]
+                  ],
+                  "target": [
+                     [
+                        "target:antibody"
+                     ]
+                  ]
+               },
+               "figures": "Fig 6"
+            }
+         ]
+      }
+   ]
+}
