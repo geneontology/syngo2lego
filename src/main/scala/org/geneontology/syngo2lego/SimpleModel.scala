@@ -5,7 +5,7 @@ import org.phenoscape.scowl._
 //import org.semanticweb.owlapi.model.IRI
 import org.semanticweb.owlapi.model._
 import org.semanticweb.owlapi.search.EntitySearcher
-import org.dosumis.brainscowl.BrainScowl
+import dosumis.brainscowl.BrainScowl
 import org.semanticweb.owlapi.apibinding.OWLManager
 import scala.language.postfixOps
 import scala.collection.mutable.ArrayBuffer

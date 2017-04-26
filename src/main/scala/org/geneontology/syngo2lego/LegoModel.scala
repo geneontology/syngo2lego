@@ -1,6 +1,6 @@
 package org.geneontology.syngo2lego
 import org.semanticweb.owlapi.apibinding.OWLManager
-import org.dosumis.brainscowl.BrainScowl
+import dosumis.brainscowl.BrainScowl
 
 import org.semanticweb.owlapi.model.OWLOntology
 import org.semanticweb.owlapi.model.OWLClass
@@ -29,6 +29,6 @@ class LegoModel (var jmodel : Json, var GO : BrainScowl) {
     sm.generate()
   }
   // TODO - add ontology level annotations:
-  owl_model.save(syngo_id + ".owl")
+  owl_model.save(syngo_id + ".owl", "ttl")
   owl_model.sleep()
 }

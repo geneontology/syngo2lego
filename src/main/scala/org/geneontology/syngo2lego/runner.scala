@@ -3,7 +3,7 @@ import rapture.json._, jsonBackends.jawn._
 import scala.io.Source
 import org.semanticweb.owlapi.apibinding.OWLManager
 import org.semanticweb.owlapi.model.IRI
-import org.dosumis.brainscowl.BrainScowl
+import dosumis.brainscowl.BrainScowl
 
 object runner extends(App) {
   // Takes full JSON file as input, splits it up into models.
