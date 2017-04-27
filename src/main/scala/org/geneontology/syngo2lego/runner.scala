@@ -4,22 +4,39 @@ import scala.io.Source
 import org.semanticweb.owlapi.apibinding.OWLManager
 import org.semanticweb.owlapi.model.IRI
 import dosumis.brainscowl.BrainScowl
+import java.lang.IllegalArgumentException
 
 object runner extends(App) {
   // Takes full JSON file as input, splits it up into models.
   // Generates individual OWL files from each model
-   /** Takes 1 arg: path to synGO JSON file. */
-      if (args.length == 1) {
-      val go = new BrainScowl("resources/go-simple.ofn")  
-      val synGO_file = Source.fromFile(args(0)).getLines.mkString
-      val synGO_json = Json.parse(synGO_file)
-    // At this point - should run check of json
-  // Loop over models calling genModel
-    for (a <- synGO_json.SynGO.as[List[Json]]) {
-    var lm = new LegoModel(a, go)
+   /** Takes 1 arg: path to synGO JSON file. 
+    *  Or optionally specify */
+  var imports_stat = true
+  var SynGO_filepath = ""
+  if (args.length == 2) {
+      if (args(0) == "-ni") {
+        imports_stat = false
+        SynGO_filepath = args(1)
+      } 
+      else {
+           new IllegalArgumentException("Unrecognized arg: " + args(0) +  "Should be one of -ni, ...")
+           // Should throw exception.
       }
-    go.sleep()
-   } else {
-     println("Wrong number of args: " + args.length)
+  }
+  else if (args.length == 1) {
+     SynGO_filepath = args(0)
+  } 
+  else {
+     throw new IllegalArgumentException("Wrong number of args: " + args.length)
+     // Should throw exception.
    }
+  val go = new BrainScowl("resources/go-simple.ofn")  
+  val synGO_file = Source.fromFile(SynGO_filepath).getLines.mkString
+  val synGO_json = Json.parse(synGO_file)
+  // At this point - should run check of json - outer struc
+  // Loop over models calling genModel
+  for (a <- synGO_json.SynGO.as[List[Json]]) {
+  var lm = new LegoModel(a, go, imports_stat)
+      }
+  go.sleep()
 }

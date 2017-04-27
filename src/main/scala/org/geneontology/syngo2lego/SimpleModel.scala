@@ -59,7 +59,7 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
   }
   
   def new_gp(): OWLNamedIndividual = {
-    return new_typed_ind(obo_ns + "PR_" + this.jmodel.uniprot.as[String])
+    return new_typed_ind(obo_ns + "UniProtKB_" + this.jmodel.uniprot.as[String])
   }
 
   def new_primary_ind(): OWLNamedIndividual = {

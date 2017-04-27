@@ -10,7 +10,7 @@ import rapture.json._, jsonBackends.jawn._
 import scala.io.Source
 import java.io.File
 
-class LegoModel (var jmodel : Json, var GO : BrainScowl) { 
+class LegoModel (var jmodel : Json, var GO : BrainScowl, add_import_statement: Boolean) {
   
   // Take one model worth of JSON (as )
   // Generates new ontology representing this JSON as LEGO.
@@ -28,7 +28,10 @@ class LegoModel (var jmodel : Json, var GO : BrainScowl) {
     var sm = new SimpleModel(model_ns, owl_model, mod, GO)
     sm.generate()
   }
+  if (this.add_import_statement) {
+    owl_model.add_import("http://purl.obolibrary.org/obo/go/extensions/go-lego.owl")
+  }
   // TODO - add ontology level annotations:
-  owl_model.save(syngo_id + ".owl")  // TODO- switch to ttl output.
+  owl_model.save(syngo_id + ".ttl", "ttl")  // TODO- switch to ttl output.
   owl_model.sleep()
 }
