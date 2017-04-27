@@ -1,0 +1,133 @@
+@prefix : <http://model.geneontology.org/SYNGO_132.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://model.geneontology.org/SYNGO_132.owl> .
+
+<http://model.geneontology.org/SYNGO_132.owl> rdf:type owl:Ontology ;
+                                               owl:imports <http://purl.obolibrary.org/obo/go/extensions/go-lego.owl> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://geneontology.org/lego/evidence
+<http://geneontology.org/lego/evidence> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/contributor
+<http://purl.org/dc/elements/1.1/contributor> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/source
+<http://purl.org/dc/elements/1.1/source> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/BFO_0000050
+<http://purl.obolibrary.org/obo/BFO_0000050> rdf:type owl:ObjectProperty .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000066
+<http://purl.obolibrary.org/obo/BFO_0000066> rdf:type owl:ObjectProperty .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002333
+<http://purl.obolibrary.org/obo/RO_0002333> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.obolibrary.org/obo/ECO_0006003
+<http://purl.obolibrary.org/obo/ECO_0006003> rdf:type owl:Class .
+
+
+###  http://purl.obolibrary.org/obo/GO_0003674
+<http://purl.obolibrary.org/obo/GO_0003674> rdf:type owl:Class .
+
+
+###  http://purl.obolibrary.org/obo/GO_0099523
+<http://purl.obolibrary.org/obo/GO_0099523> rdf:type owl:Class .
+
+
+###  http://purl.obolibrary.org/obo/UBERON_0001950
+<http://purl.obolibrary.org/obo/UBERON_0001950> rdf:type owl:Class .
+
+
+###  http://purl.obolibrary.org/obo/UniProtKB_Q69ZP3
+<http://purl.obolibrary.org/obo/UniProtKB_Q69ZP3> rdf:type owl:Class .
+
+
+###  http://purl.obolibrary.org/obo/biosys_intacttissue
+<http://purl.obolibrary.org/obo/biosys_intacttissue> rdf:type owl:Class .
+
+
+###  http://purl.obolibrary.org/obo/target_antibody
+<http://purl.obolibrary.org/obo/target_antibody> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://model.geneontology.org/SYNGO_1320c0b5c98-b47f-49d5-b67d-a0bf4551c634
+<http://model.geneontology.org/SYNGO_1320c0b5c98-b47f-49d5-b67d-a0bf4551c634> rdf:type owl:NamedIndividual ,
+                                                                                       <http://purl.obolibrary.org/obo/GO_0099523> ;
+                                                                              <http://purl.obolibrary.org/obo/BFO_0000050> <http://model.geneontology.org/SYNGO_132eb8831de-df0f-4eee-a81b-644697697aa1> .
+
+
+###  http://model.geneontology.org/SYNGO_13215ac2923-55a0-40f3-8311-6513dc6f76ec
+<http://model.geneontology.org/SYNGO_13215ac2923-55a0-40f3-8311-6513dc6f76ec> rdf:type owl:NamedIndividual ,
+                                                                                       <http://purl.obolibrary.org/obo/UniProtKB_Q69ZP3> .
+
+
+###  http://model.geneontology.org/SYNGO_13250e5ae64-b439-40fd-bda5-463180519368
+<http://model.geneontology.org/SYNGO_13250e5ae64-b439-40fd-bda5-463180519368> rdf:type owl:NamedIndividual ,
+                                                                                       <http://purl.obolibrary.org/obo/target_antibody> ;
+                                                                              <http://purl.org/dc/elements/1.1/contributor> "verhage"^^xsd:string ;
+                                                                              <http://purl.org/dc/elements/1.1/source> "PMID:25730884"^^xsd:string .
+
+
+###  http://model.geneontology.org/SYNGO_13288ec4316-80ff-49c7-889f-3a237d5f81a9
+<http://model.geneontology.org/SYNGO_13288ec4316-80ff-49c7-889f-3a237d5f81a9> rdf:type owl:NamedIndividual ,
+                                                                                       <http://purl.obolibrary.org/obo/biosys_intacttissue> ;
+                                                                              <http://purl.org/dc/elements/1.1/contributor> "verhage"^^xsd:string ;
+                                                                              <http://purl.org/dc/elements/1.1/source> "PMID:25730884"^^xsd:string .
+
+
+###  http://model.geneontology.org/SYNGO_132b6627ad6-f9fe-4ac6-84d1-5dc24bb23125
+<http://model.geneontology.org/SYNGO_132b6627ad6-f9fe-4ac6-84d1-5dc24bb23125> rdf:type owl:NamedIndividual ,
+                                                                                       <http://purl.obolibrary.org/obo/GO_0003674> ;
+                                                                              <http://purl.obolibrary.org/obo/BFO_0000066> <http://model.geneontology.org/SYNGO_1320c0b5c98-b47f-49d5-b67d-a0bf4551c634> ;
+                                                                              <http://purl.obolibrary.org/obo/RO_0002333> <http://model.geneontology.org/SYNGO_13215ac2923-55a0-40f3-8311-6513dc6f76ec> .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource <http://model.geneontology.org/SYNGO_132b6627ad6-f9fe-4ac6-84d1-5dc24bb23125> ;
+   owl:annotatedProperty <http://purl.obolibrary.org/obo/BFO_0000066> ;
+   owl:annotatedTarget <http://model.geneontology.org/SYNGO_1320c0b5c98-b47f-49d5-b67d-a0bf4551c634> ;
+   <http://geneontology.org/lego/evidence> <http://model.geneontology.org/SYNGO_13250e5ae64-b439-40fd-bda5-463180519368> ,
+                                           <http://model.geneontology.org/SYNGO_13288ec4316-80ff-49c7-889f-3a237d5f81a9> ,
+                                           <http://model.geneontology.org/SYNGO_132e185060e-c2b8-43b4-bac8-325b17844c62>
+ ] .
+
+
+###  http://model.geneontology.org/SYNGO_132e185060e-c2b8-43b4-bac8-325b17844c62
+<http://model.geneontology.org/SYNGO_132e185060e-c2b8-43b4-bac8-325b17844c62> rdf:type owl:NamedIndividual ,
+                                                                                       <http://purl.obolibrary.org/obo/ECO_0006003> ;
+                                                                              <http://purl.org/dc/elements/1.1/contributor> "verhage"^^xsd:string ;
+                                                                              <http://purl.org/dc/elements/1.1/source> "PMID:25730884"^^xsd:string .
+
+
+###  http://model.geneontology.org/SYNGO_132eb8831de-df0f-4eee-a81b-644697697aa1
+<http://model.geneontology.org/SYNGO_132eb8831de-df0f-4eee-a81b-644697697aa1> rdf:type owl:NamedIndividual ,
+                                                                                       <http://purl.obolibrary.org/obo/UBERON_0001950> .
+
+
+###  Generated by the OWL API (version 4.2.7.20161016-0911) https://github.com/owlcs/owlapi
