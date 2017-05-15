@@ -2,7 +2,7 @@ package org.geneontology.syngo2lego
 
 import rapture.json._, jsonBackends.jawn._
 import org.phenoscape.scowl._
-//import org.semanticweb.owlapi.model.IRI
+import org.semanticweb.owlapi.model.IRI
 import org.semanticweb.owlapi.model._
 import org.semanticweb.owlapi.search.EntitySearcher
 import dosumis.brainscowl.BrainScowl
@@ -20,6 +20,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
   
   // Namespaces (In the OWL sense - AKA Base IRIs)
   val obo_ns = "http://purl.obolibrary.org/obo/"
+  val idOrg_ns = "http://identifiers.org/"
+  val synGO_ns = "http://syngo.vu.nl/"
   
  // OP vals    // This should really be pulled from a config file
   val enabled_by = ObjectProperty(obo_ns + "RO_0002333")
@@ -40,14 +42,6 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
   val primary_aspect = go.getSpecTextAnnotationsOnEntity(
       query_short_form = this.jmodel.goTerm.as[String].replace(":", "_"),
       ap_short_form = "hasOBONamespace").head // Baking in cardinality without check.
-      
-  def annotate_ontology() {
-     // ontology metadata addition:
-    val dc_base = "http://purl.org/dc/elements/1.1/"
-    val title = dc_base + "title"
-    val contributor = dc_base + "contributor"
-    val date = dc_base + "date"
-  }
 
   
   def new_ind() : OWLNamedIndividual = {
@@ -67,7 +61,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
   }
   
   def new_gp(): OWLNamedIndividual = {
-    return new_typed_ind(obo_ns + "UniProtKB_" + this.jmodel.uniprot.as[String])
+//  return new_typed_ind(obo_ns + "UniProtKB_" + this.jmodel.uniprot.as[String])
+    return new_typed_ind(idOrg_ns + "uniprot/" + this.jmodel.uniprot.as[String])
   }
 
   def new_primary_ind(): OWLNamedIndividual = {
@@ -98,7 +93,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
     // Also annotates model with contributor
     val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
     val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
-    val contributor = jmodel.username.as[String]
+//  val contributor = IRI.create(synGO_ns + jmodel.username.as[String])
+    val contributor = synGO_ns + jmodel.username.as[String]
     val source = "PMID:" + jmodel.pmid.as[String]
     val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")    
     this.ont.annotateOntology(Annotation (dc_contributor, contributor))

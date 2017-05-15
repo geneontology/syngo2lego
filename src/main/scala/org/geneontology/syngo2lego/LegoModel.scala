@@ -53,6 +53,6 @@ class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: B
     owl_model.add_import("http://purl.obolibrary.org/obo/go/extensions/go-lego.owl")
     file_extension = ".ttl"
   }
-  owl_model.save(syngo_id + test, "ttl")  // 
+  owl_model.save(syngo_id + test + ".ttl", "ttl")  // 
   owl_model.sleep()
 }
