@@ -9,8 +9,10 @@ import java.lang.IllegalArgumentException
 object runner extends(App) {
   // Takes full JSON file as input, splits it up into models.
   // Generates individual OWL files from each model
+  // TODO: switch arg processing to standard module e.g. https://github.com/backuity/clist
    /** Takes 1 arg: path to synGO JSON file. 
     *  Or optionally specify */
+  val test = true // Should be arg
   var imports_stat = true
   var SynGO_filepath = ""
   if (args.length == 2) {

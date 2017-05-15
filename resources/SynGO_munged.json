@@ -56,9 +56,6 @@
                      ]
                   ],
                   "target": [
-                     [
-                        "target:antibody"
-                     ]
                   ]
                },
                "figures": "Fig 3"
@@ -122,10 +119,7 @@
                   ],
                   "target": [
                      [
-                        "target:rnai"
-                     ],
-                     [
-                        "target:antibody"
+                        "ECO:0006052"
                      ]
                   ]
                },
@@ -170,32 +164,23 @@
                "evidence": {
                   "system": [
                      [
-                        "biosys:intacttissue"
-                     ],
-                     [
                         "ECO:0005014"
                      ]
                   ],
                   "assay": [
                      [
-                        "MAXP:ECO:0005598"
-                     ],
-                     [
                         "ECO:0000279",
-                        "MAXP:ECO:0000004"
+                        "ECO:0006042"
                      ],
                      [
                         "ECO:0001230",
-                        "MAXP:ECO:0000004"
+                        "ECO:0006042"
                      ],
                      [
-                        "MAXP:ECO:0000004"
+                        "ECO:0006042"
                      ]
                   ],
                   "target": [
-                     [
-                        "target:antibody"
-                     ]
                   ]
                },
                "figures": "Table 1; Figs 1, 2 and 3"
@@ -214,7 +199,7 @@
                   {
                      "occurs_in": [
                         "UBERON:0002421",
-                        "GABAergic"
+                        "GO:0098982"
                      ]
                   }
                ],
@@ -295,7 +280,7 @@
                "evidence": {
                   "system": [
                      [
-                        "biosys:intacttissue"
+                        "ECO:0000178"
                      ]
                   ],
                   "assay": [
@@ -325,13 +310,13 @@
                   {
                      "occurs_in": [
                         "UBERON:0000955",
-                        "Glutamatergic"
+                        "GO:0098978"
                      ]
                   },
                   {
                      "occurs_in": [
                         "UBERON:0000955",
-                        "GABAergic"
+                        "GO:0098982"
                      ]
                   }
                ],
@@ -352,7 +337,7 @@
                "evidence": {
                   "system": [
                      [
-                        "biosys:nonneuron"
+                        "ECO:0005014"
                      ]
                   ],
                   "assay": [
@@ -362,7 +347,7 @@
                   ],
                   "target": [
                      [
-                        "target:overexpression"
+                        "ECO:0000120"
                      ]
                   ]
                },
@@ -396,7 +381,7 @@
                "evidence": {
                   "system": [
                      [
-                        "biosys:intacttissue"
+                        "ECO:0000178"
                      ]
                   ],
                   "assay": [
@@ -476,7 +461,7 @@
                   {
                      "part_of": [
                         "UBERON:0002421",
-                        "Glutamatergic"
+                        "GO:0098978"
                      ]
                   }
                ],
@@ -512,7 +497,7 @@
                "evidence": {
                   "system": [
                      [
-                        "biosys:intacttissue"
+                        "ECO:0000178"
                      ]
                   ],
                   "assay": [
@@ -521,9 +506,6 @@
                      ]
                   ],
                   "target": [
-                     [
-                        "target:antibody"
-                     ]
                   ]
                },
                "figures": "Fig. 7"
@@ -562,7 +544,7 @@
                "evidence": {
                   "system": [
                      [
-                        "biosys:intacttissue"
+                        "ECO:0000178"
                      ]
                   ],
                   "assay": [
@@ -571,9 +553,6 @@
                      ]
                   ],
                   "target": [
-                     [
-                        "target:antibody"
-                     ]
                   ]
                },
                "figures": "Fig 6"

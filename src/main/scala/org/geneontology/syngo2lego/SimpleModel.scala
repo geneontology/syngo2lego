@@ -40,6 +40,14 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
   val primary_aspect = go.getSpecTextAnnotationsOnEntity(
       query_short_form = this.jmodel.goTerm.as[String].replace(":", "_"),
       ap_short_form = "hasOBONamespace").head // Baking in cardinality without check.
+      
+  def annotate_ontology() {
+     // ontology metadata addition:
+    val dc_base = "http://purl.org/dc/elements/1.1/"
+    val title = dc_base + "title"
+    val contributor = dc_base + "contributor"
+    val date = dc_base + "date"
+  }
 
   
   def new_ind() : OWLNamedIndividual = {
@@ -87,11 +95,13 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
  
   def gen_annotations(evj: Json): Set[OWLAnnotation] = {
     // Generate a set of individuals to be attached to edges as evidence
+    // Also annotates model with contributor
     val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
     val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
     val contributor = jmodel.username.as[String]
     val source = "PMID:" + jmodel.pmid.as[String]
-    val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")
+    val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")    
+    this.ont.annotateOntology(Annotation (dc_contributor, contributor))
     // Should probably add these to the ontology too - but feels like wrong place to do it.
   ///  this.ont.add_axiom(ont.ontology Annotation(dc_source, source))
      var out = Set[OWLAnnotation]()  
