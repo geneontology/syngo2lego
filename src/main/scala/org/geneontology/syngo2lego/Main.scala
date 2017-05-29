@@ -8,20 +8,17 @@ import java.lang.IllegalArgumentException
 import org.backuity.clist._
 
 
-class Cat extends Command(description = "fubar fubar fubar") {
+class Cat extends Command(description = "Command line options and args for syngo2lego.") {
   var no_imports = opt[Boolean](abbrev = "ni", description = "No imports", default = true)
   var development = opt[Boolean](abbrev = "dev", description = "Development status in noctua")
   var publish = opt[Boolean](abbrev = "pub", description = "Publish status in noctua.")  
   var json_file = arg[String](description = "SynGO JSON file")
 }
 
-object runner extends(App) {
+object Main extends(App) {
   Cli.parse(args).withCommand(new Cat) { case cat => 
   // Takes full JSON file as input, splits it up into models.
   // Generates individual OWL files from each model
-  // TODO: switch arg processing to standard module e.g. https://github.com/backuity/clist
-   /** Takes 1 arg: path to synGO JSON file. 
-    *  Or optionally specify */
   val go = new BrainScowl("resources/go-simple.ofn") // TODO switch to pulling this dynamically from URL
   val synGO_file = Source.fromFile(cat.json_file).getLines.mkString
   val synGO_json = Json.parse(synGO_file)
