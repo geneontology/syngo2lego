@@ -121,8 +121,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
      var out = Set[OWLAnnotation]()  
        for ((k,v) <- jmodel.evidence.as[Map[String, Json]]) {
          // TODO annotated inds with syngo evidence codes. Needs extension to JSON.
-         for (eco <- v.as[List[List[String]]]) {  // Temporary fix for https://github.com/geneontology/synapse/issues/130
-           val ann = new_typed_ind(obo_ns + eco(0).replace(":", "_")) // (0) is temporary fix for https://github.com/geneontology/synapse/issues/130
+         for (eco <- v.as[List[String]]) {  // 
+           val ann = new_typed_ind(obo_ns + eco.replace(":", "_")) // 
            this.ont.add_axiom(ann Annotation (dc_source, source))
            out += Annotation(evidence, ann)
          }

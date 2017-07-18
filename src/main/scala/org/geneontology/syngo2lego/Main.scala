@@ -10,8 +10,8 @@ import org.backuity.clist._
 
 class Cat extends Command(description = "Command line options and args for syngo2lego.") {
   var no_imports = opt[Boolean](abbrev = "ni", description = "No imports", default = true)
-  var development = opt[Boolean](abbrev = "dev", description = "Development status in noctua")
-  var publish = opt[Boolean](abbrev = "pub", description = "Publish status in noctua.")  
+//  var development = opt[Boolean](abbrev = "dev", description = "Development status in noctua")
+//  var publish = opt[Boolean](abbrev = "pub", description = "Publish status in noctua.")  
   var json_file = arg[String](description = "SynGO JSON file")
 }
 
@@ -24,15 +24,15 @@ object Main extends(App) {
   val synGO_json = Json.parse(synGO_file)
   // At this point - should run check of json - outer struc
   // Loop over models calling genModel
-  var status = "delete"
-  if (cat.development) {
-    status = "development"
-  }
-  if (cat.publish) {
-    status = "publish"
-  }
+//  var status = "delete"
+//  if (cat.development) {
+//    status = "development"
+//  }
+//  if (cat.publish) {
+//    status = "publish"
+//  }
   for (a <- synGO_json.SynGO.as[List[Json]]) {
-  var lm = new LegoModel(a, go, cat.no_imports, status)
+    var lm = new LegoModel(a, go, cat.no_imports)
       }
   go.sleep()
   }

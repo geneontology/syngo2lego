@@ -13,7 +13,7 @@ import java.io.File
 import java.util.Date
 import java.text.SimpleDateFormat
 
-class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: Boolean, status: String) {
+class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: Boolean) {
   /**
   
   Take one model worth of SynGO JSON (as Json)
@@ -28,20 +28,19 @@ class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: B
   // Has two modes:  
   
   val test = "_test" // switch for test mode - flags filenames and metadata. // should be from arg.
-  val syngo_id = this.jmodel.model_id.as[String].replace(":", "_")
+  val syngo_id = this.jmodel.combi_id.as[String].replace(":", "_")
   val base = "http://model.geneontology.org/"
   var owl_model = new BrainScowl(iri_string = base + syngo_id + test, base_iri = base + syngo_id) // constructor may change
   val title = AnnotationProperty("http://purl.org/dc/elements/1.1/title")
-  val date = AnnotationProperty("http://purl.org/dc/elements/1.1/date")
+  val dc_date = AnnotationProperty("http://purl.org/dc/elements/1.1/date")
   val model_status = AnnotationProperty("http://geneontology.org/lego/modelstate")
   owl_model.annotateOntology(Annotation(title, syngo_id + test))
   // Files have no assoc date (except for in comments). So, for now at least,
   // generating here to fulfill loading requirements.
   
-  val now = new Date()
-  val ft = new SimpleDateFormat("yyyy-MM-dd")
-  owl_model.annotateOntology(Annotation(date, ft.format(now)))
-  owl_model.annotateOntology(Annotation(model_status, this.status)) 
+  val datestamp = this.jmodel.datestamp.as[String]
+  owl_model.annotateOntology(Annotation(dc_date, datestamp))
+  owl_model.annotateOntology(Annotation(model_status, this.jmodel.status.as[String]))
   val mods = this.jmodel.models.as[List[Json]]
   val model_ns = base + syngo_id
   var file_extension = ""
