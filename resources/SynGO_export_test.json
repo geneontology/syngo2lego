@@ -1,0 +1,445 @@
+
+ {
+    "SynGO": [
+        {
+            "combi_id": "SYNGO:50",
+            "datestamp": "2017-04-25",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 50,
+                    "username": "chua",
+                    "pmid": "9194562",
+                    "figures": "Fig 4",
+                    "uniprot": "P63011",
+                    "goDomain": "BP",
+                    "goTerm": "GO:0031630",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "ECO:0006065"
+                        ],
+                        "target": [
+                            "ECO:0001225"
+                        ],
+                        "assay": [
+                            "ECO:0000164"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "occurs_in": [
+                                "UBERON:0002421"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "\"Low-density microisland cultures of hippocampal pyramidal neurons were prepared from E15–E17 wild-type, rab3A-mutant and synaptotagmin I mutant mouse embryos as described.\"",
+                        "rationale": "Increased average peak quantal release per synapse in rab3a KO neurons treated with either MK-801 or AP5 and enhanced paired-pulse facilitation in these neurons indicate a higher quantal release per synapse (i.e. more synaptic vesicles fuse per synapse) during stimulation.\n\n19\/01\/2017 Pim\nThis annotation build s on well established information that rab3a is a protein attached to the SV membrane."
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:80",
+            "datestamp": "2017-06-06",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 80,
+                    "username": "ryan",
+                    "pmid": "23699505",
+                    "figures": "3D-E, 6G",
+                    "uniprot": "Q03114",
+                    "goDomain": "BP",
+                    "goTerm": "GO:0099635",
+                    "regulates": true,
+                    "evidence": {
+                        "system": [
+                            "ECO:0006065"
+                        ],
+                        "target": [
+                            "ECO:0006052",
+                            "ECO:0005593"
+                        ],
+                        "assay": [
+                            "ECO:0006039"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "occurs_in": [
+                                "UBERON:0002421"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "Hippocampal CA3–CA1 regions were dissected from 1- to 2-d-old Sprague Dawley rats, dissociated, and plated onto poly-ornithine-coated glass for 14–21 d as described previously (Ryan, 1999).",
+                        "rationale": "Combination of knock down and pharmacological inhibitions along with function measures of presynaptic calcium influx shows that CDK5 normally constrains the activity of voltage-gated Ca channels.\n\n23\/01\/2017 Pim\n- Fig.1 KD of CNa has negative effect on SV exocytosis\n- Fig.2 KD\/agonist of CDK5 has positive effect on SV exocytosis\n- Fig.2 Effect of CDK5 and CNa is via VGCCs (shown via VGCC inhibition)\n- Fig.3\/4\/5\/6 CNa and CDK5 activities affect presynaptic Ca influx"
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:92",
+            "datestamp": "2017-03-21",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 92,
+                    "username": "gundelfinger",
+                    "pmid": "9679147",
+                    "figures": "Fig. 7",
+                    "uniprot": "O88778",
+                    "goDomain": "CC",
+                    "goTerm": "GO:0098831",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "biosys:intacttissue"
+                        ],
+                        "target": [
+                            "ECO:0005593"
+                        ],
+                        "assay": [
+                            "ECO:0006003"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "part_of": [
+                                "UBERON:0002421",
+                                "GO:0098978"
+                            ]
+                        },
+                        {
+                            "part_of": [
+                                "GO:0098686"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "Electron micrographs of ultrathin sections of rat brain (A–C) and agarose-embedded synaptosomal preparations (D–F) are shown. p. 506",
+                        "rationale": "EM localization after peroxidase reaction at the active zone of A) mossy fibre terminals in the CA3, B) active zone of the shaft synapse in CA3, C) immunoreactivity in shaft synapse of the molecular layer of CA3, D,E) ultrastructural localization of Bassoon in isolated nerve terminals by immunogold EM."
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:110",
+            "datestamp": "2017-03-20",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 110,
+                    "username": "gundelfinger",
+                    "pmid": "18029012",
+                    "figures": "Figs. 6",
+                    "uniprot": "P20020",
+                    "goDomain": "BP",
+                    "goTerm": "GO:1905056",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+
+                        ],
+                        "target": [
+                            "ECO:0006063"
+                        ],
+                        "assay": [
+                            "ECO:0006039"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "occurs_in": [
+                                "UBERON:0000955",
+                                "GO:0098978"
+                            ]
+                        },
+                        {
+                            "occurs_in": [
+                                "UBERON:0000955",
+                                "GO:0098982"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "HeLa cells were cultured in Dulbecco’s-modified Eagle’s Medium. p. 551",
+                        "rationale": "The primary PMID shows regulation of human PMCA1 activity, the inference shows the occurence of PMCA1 at presynaptic active zone by proteomics.\n\n26\/01\/2017 Pim\nInference:\n18029012 Fig.6: shows IDA of \"regulation of cytosolic calcium levels\" of human AT2B1\nSynGO ID#89: shows localization of rat AT2B1 in the AZ membrane of GABA and Glutamate synapses.\nknown info: AT2B1 is a ATP-fueled calcium pump."
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:113",
+            "datestamp": "2017-03-21",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 113,
+                    "username": "kaeser",
+                    "pmid": "22753485",
+                    "figures": "supplemental figure 4",
+                    "uniprot": "Q9EQZ7",
+                    "goDomain": "BP",
+                    "goTerm": "GO:0016082",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "ECO:0006065"
+                        ],
+                        "target": [
+                            "ECO:0001225"
+                        ],
+                        "assay": [
+                            "ECO:0006013"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "occurs_in": [
+                                "UBERON:0002421",
+                                "GO:0098982"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "Primary hippocampal neuronal cultures were prepared from newborn pups of RIM1αβf\/f, RIM2αβγf\/f, or RIM1αβf\/f\/RIM2αβγf\/f mice according to standard protocols (4, 21).",
+                        "rationale": "RIM2 knockout cultures have a reduction in the size of the sucrose pool at inhibitory synapses, demonstrating a role for RIM2 in vesicle priming.  Due to the strong homology between RIM1 and RIM2, both proteins are assumed to be redundant in this process. Action potential mediated pool measurements have confirmed a role in priming for RIM1 and RIM2 at the Calyx of Held (Han et.al. 2011)."
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:132",
+            "datestamp": "2017-03-21",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 132,
+                    "username": "verhage",
+                    "pmid": "25730884",
+                    "figures": "Fig 2a-d",
+                    "uniprot": "Q69ZP3",
+                    "goDomain": "CC",
+                    "goTerm": "GO:0099523",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "biosys:intacttissue"
+                        ],
+                        "target": [
+                            "ECO:0005593"
+                        ],
+                        "assay": [
+                            "ECO:0006003"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "part_of": [
+                                "UBERON:0001950"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "In Fig2 legend: \"Lowicryl postembedding electron microscopy was applied to localize PNKD in the neocortex of wild-type and Pnkd−\/− mice.\"",
+                        "rationale": "immuno-EM study on this protein shows cytosolic localisation of protein. Null mutant mice are using as (strong) control for non-specific reactivity."
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:138",
+            "datestamp": "2017-03-20",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 138,
+                    "username": "chua",
+                    "pmid": "20926670",
+                    "figures": "Table 1; Figs 1, 2 and 3",
+                    "uniprot": "O35509",
+                    "goDomain": "CC",
+                    "goTerm": "GO:0098993",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "biosys:intacttissue",
+                            "ECO:0006065"
+                        ],
+                        "target": [
+                            "ECO:0005593"
+                        ],
+                        "assay": [
+                            "ECO:0006062",
+                            "ECO:0000279",
+                            "ECO:0006042",
+                            "ECO:0001230"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "part_of": [
+                                "UBERON:0001869"
+                            ]
+                        },
+                        {
+                            "part_of": [
+                                "UBERON:0002421"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "Legend to Figure 2 \"Enrichment profiles of Rab GTPases on purified SVs isolated from rat brain homogenates, determined by quantitative immunoblotting\"\n\nSpecies of OE Rab11B in Fig 3 is human. Other figures show localization of rat protein. Annotation accepted against rat species.",
+                        "rationale": "RAB11B was detected on highly purified synaptic vesicles using mass spectrometric and immunoblot analyses. GFP-RAB11B colocalises well with synaptophysin puncta in transiently transfected cultured hippocampal neurons."
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:164",
+            "datestamp": "2017-03-21",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 164,
+                    "username": "ruud",
+                    "pmid": "12575951",
+                    "figures": "Fig 3-8",
+                    "uniprot": "Q9VQQ9",
+                    "goDomain": "BP",
+                    "goTerm": "GO:0060074",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "biosys:intacttissue"
+                        ],
+                        "target": [
+                            "ECO:0001225"
+                        ],
+                        "assay": [
+                            "ECO:0005589"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "occurs_in": [
+                                "GO:0031594"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "Fig2: sec5E10 larvae, between 72 and 96 hr AEL have no detectable Sec5 protein",
+                        "rationale": "Fig 3: Loss of Sec5 Prevents Growth of the Neuromuscular Junction\nFig 4: Sec5 Is Required for Neurite Outgrowth\nFig 5: Transport of an Integral Membrane Protein (CD8) to the Cell Surface Is Impaired in sec5 Mutants, not intracellular trafficking\nFig 6: Sec5 was not required for axonal transport of the CD8-containing vesicles but null mutant show strongly reduced surface expression of CD8 and Synaptotagmin-GFP (Fig 7).\nFig 8: Synaptic Transmission Persists in sec5 Null Mutants\nHence, trafficking for cell growth and membrane protein insertion depend on sec5, whereas transmitter secretion does not\n\n13\/2\/2017 Pim:\n-Reading the abstract, the authors suggest that Sec5 is mediating membrane transport\/insertion associated with synapse maturation (especially expansion of NMJ). \n-From this scentence (Fig.3): \"However, sec5E10 mutant larvae do not grow substantially between 48 and 96 hr AEL. Because maternal protein decreases dramatically during larval development in the mutant, we looked for any aberrations in the postembryonic maturation of the NMJ.\" --> 'synapse maturation'\n-From Fig.5+6+7: Sec5 mediates vesicular axonal transport of TM proteins --> \"[GO:0099641] anterograde axonal protein transport\""
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:203",
+            "datestamp": "2017-03-20",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 203,
+                    "username": "vanweering",
+                    "pmid": "24261326",
+                    "figures": "Fig 6",
+                    "uniprot": "Q9WV80",
+                    "goDomain": "CC",
+                    "goTerm": "GO:0098999",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "biosys:intacttissue"
+                        ],
+                        "target": [
+                            "ECO:0005593"
+                        ],
+                        "assay": [
+                            "ECO:0006003"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "part_of": [
+                                "UBERON:0002421"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "our wild-type eight-week-old male C57BL\/6N mice were perfused transcardially with 4% paraformaldehyde\/0.1 M sodium phosphate buffer (PB, pH 7.2) for light microscopic immuno- histochemistry or with 4% paraformaldehyde\/0.1% glutaraldehyde\/ 0.1 M PB for immunoelectron microscopy.",
+                        "rationale": "Quantitative immunogold reactivity against SNX1 in mouse hippocampal pyramidal neurons shows a predominant postsynaptic distribution. SNX1 is localized to endosome membranes, but the subclass of endosome (early\/late\/recycling) is not unambiguously determined"
+                    }
+                }
+            ]
+        },
+        {
+            "combi_id": "SYNGO:1107",
+            "datestamp": "2017-07-07",
+            "status": "development",
+            "models": [
+                {
+                    "annotationid": 1107,
+                    "username": "testuser",
+                    "pmid": "1",
+                    "figures": "2",
+                    "uniprot": "P31016",
+                    "goDomain": "CC",
+                    "goTerm": "GO:0031225",
+                    "regulates": false,
+                    "evidence": {
+                        "system": [
+                            "ECO:0006065"
+                        ],
+                        "target": [
+                            "ECO:0005593"
+                        ],
+                        "assay": [
+                            "ECO:0006003",
+                            "ECO:0006004"
+                        ]
+                    },
+                    "extensions": [
+                        {
+                            "part_of": [
+                                "UBERON:0002037",
+                                "GO:0098978",
+                                "GO:0098794",
+                                "GO:0005789"
+                            ]
+                        },
+                        {
+                            "part_of": [
+                                "UBERON:0002421",
+                                "GO:0098982",
+                                "GO:0098794",
+                                "GO:0005789"
+                            ]
+                        },
+                        {
+                            "part_of": [
+                                "GO:0098684",
+                                "GO:0098794",
+                                "GO:0005789"
+                            ]
+                        },
+                        {
+                            "part_of": [
+                                "GO:0098683",
+                                "GO:0098794",
+                                "GO:0005789"
+                            ]
+                        }
+                    ],
+                    "comments": {
+                        "species": "Information on\nused species",
+                        "rationale": "Describe the annotation"
+                    }
+                }
+            ]
+        }
+    ]
+}
