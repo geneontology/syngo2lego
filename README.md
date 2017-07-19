@@ -8,4 +8,4 @@ Use sbt to build.
 
 To run:
 
-sbt run org.geneontology.syngo2lego.runner <path to syngo json file>
+sbt "run (-ni/dev) \<path to syngo json file>"
