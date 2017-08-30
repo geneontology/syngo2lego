@@ -26,9 +26,10 @@ class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: B
  
   // Architecture: Doesn't need to be a class... could just be an object with a main function.
   // Has two modes:  
-  
-  val test = "_test" // switch for test mode - flags filenames and metadata. // should be from arg.
+//val test = "_test" // switch for test mode - flags filenames and metadata. // should be from arg.  
+  val test = "" // switch for test mode - flags filenames and metadata. // should be from arg.
   val syngo_id = this.jmodel.combi_id.as[String].replace(":", "_")
+  println(s"Processing ${syngo_id}.")
   val base = "http://model.geneontology.org/"
   var owl_model = new BrainScowl(iri_string = base + syngo_id + test, base_iri = base + syngo_id) // constructor may change
   val title = AnnotationProperty("http://purl.org/dc/elements/1.1/title")

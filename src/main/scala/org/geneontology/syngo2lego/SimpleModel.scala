@@ -14,7 +14,8 @@ import collection.JavaConverters._
 import java.util.Date
 import java.text.SimpleDateFormat
 
-class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json, val go: BrainScowl) {
+class SimpleModel (val model_ns: String, var ont : BrainScowl, 
+                   val jmodel : Json, val go: BrainScowl) {
   // Passing rather too many vars.  Deeper class model with some 
   // inheritance might be good here instead...
   
@@ -34,17 +35,25 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
       "occurs_in" ->  occurs_in)  // More concise way to do this?
       
   val primary_class = Class(obo_ns + this.jmodel.goTerm.as[String].replace(":", "_"))
+  
+  // Add check that primary class exists in GO!
       
   // Annotations // Global 'cos they go on everything.
       
   val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
 //  val contributor = IRI.create(synGO_ns + jmodel.username.as[String])
+  val comment = AnnotationProperty("http://www.w3.org/2000/01/rdf-schema#comment")
   val contributor = synGO_ns + jmodel.username.as[String]
   val source = "PMID:" + jmodel.pmid.as[String]
   val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")    
 
   this.ont.annotateOntology(Annotation (dc_contributor, contributor))
   val dc_date = AnnotationProperty("http://purl.org/dc/elements/1.1/date")
+  
+  val species = jmodel.comments.species.as[String]
+  val rationale = jmodel.comments.rationale.as[String]
+  this.ont.annotateOntology(Annotation (comment ,
+      s"Rationale: ${rationale}. Experimental description: ${species}"))
   
   // Temporary expedient
   def date(): String = {
@@ -62,7 +71,7 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
  
   val primary_aspect = go.getSpecTextAnnotationsOnEntity(
       query_short_form = this.jmodel.goTerm.as[String].replace(":", "_"),
-      ap_short_form = "hasOBONamespace").head // Baking in cardinality without check.
+      ap_short_form = "hasOBONamespace").head // head bakes in cardinality without check!
 
   
   def new_ind() : OWLNamedIndividual = {
@@ -121,10 +130,17 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl, val jmodel : Json
      var out = Set[OWLAnnotation]()  
        for ((k,v) <- jmodel.evidence.as[Map[String, Json]]) {
          // TODO annotated inds with syngo evidence codes. Needs extension to JSON.
-         for (eco <- v.as[List[String]]) {  // 
-           val ann = new_typed_ind(obo_ns + eco.replace(":", "_")) // 
-           this.ont.add_axiom(ann Annotation (dc_source, source))
-           out += Annotation(evidence, ann)
+         for (eco <- v.as[List[String]]) {  //
+           // Add in conditional to check for ECO by regex match.  Warn if not.
+           val re = "^ECO:[0-9]{7}$".r
+           val m = re.findFirstIn(eco)
+           if (!m.isEmpty) {
+             val ann = new_typed_ind(obo_ns + eco.replace(":", "_")) // 
+             this.ont.add_axiom(ann Annotation (dc_source, source))
+             out += Annotation(evidence, ann)
+           } else {
+             println(s"Ignoring ${eco} as it doesn't look like an ECO term.")
+           }
          }
        }
      return out
