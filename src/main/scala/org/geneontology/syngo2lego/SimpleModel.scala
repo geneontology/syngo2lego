@@ -159,7 +159,7 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
     if (primary_aspect == "cellular_component") {
       val annotations = gen_annotations(jmodel.evidence)
       val mfi = new_mfi()
-      this.ont.add_axiom(mfi Fact (enabled_by, gp))
+      this.ont.add_axiom(ObjectPropertyAssertion(annotations, enabled_by, mfi, gp))
       this.ont.add_axiom(ObjectPropertyAssertion(annotations, occurs_in, mfi, primary_ind))
     }
     if (primary_aspect == "molecular_function") {
@@ -170,7 +170,7 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
     if (primary_aspect == "biological_process") {
       val annotations = gen_annotations(jmodel.evidence)
       val mfi = new_mfi()
-      this.ont.add_axiom(mfi Fact (enabled_by, gp))
+      this.ont.add_axiom(ObjectPropertyAssertion(annotations, enabled_by, mfi, gp))
       this.ont.add_axiom(ObjectPropertyAssertion(annotations, part_of, mfi, primary_ind))
     }
   return primary_ind
