@@ -1,15 +1,15 @@
 ## Outline
 
-### Runner (All files from one dump):  
+### Main:  
 
-Parses a set of models specified in a JSON file into a set of JSON files.
+Scala app that parses a set of models specified in a JSON file into a set of OWL (ttl) files.
 Load reference OWL file(s) here.
 
-### Full model (one or more simple models in one file) :
- Wrapper for parsing one model worth of JSON, writing one OWL file.
- 
-### Simple model:  
+###  LegoModel (one or more simple models in one file):
 
-Class model writer - takes in one model worth of SynGO JSON.
-Generates OWL
+Wrapper for parsing a noctual model consisting of one or more simple models (corresponding to classic OWL annotations) and writing a single OWL (ttl) file.  Currently there are no connections between simple models in SynGO JSON.  Calls SimpleModel to generate component classic GO annotations.
+ 
+### SimpleModel:  
+
+Generate a single classic extended GO annotation, annotated as for LEGO.
 
