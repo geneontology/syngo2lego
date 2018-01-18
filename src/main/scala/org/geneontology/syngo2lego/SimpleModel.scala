@@ -43,7 +43,7 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
 //  val contributor = IRI.create(synGO_ns + jmodel.username.as[String])
   val comment = AnnotationProperty("http://www.w3.org/2000/01/rdf-schema#comment")
-  val contributor = synGO_ns + jmodel.username.as[String]
+  val contributor = "SynGO:" + jmodel.username.as[String]
   val source = "PMID:" + jmodel.pmid.as[String]
   val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")    
 
@@ -157,10 +157,11 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
       val primary_ind = new_primary_ind()
    // ObjectPropertyAssertion(annotations, loves, Aya, Freddy)     // For ref
     if (primary_aspect == "cellular_component") {
-      val annotations = gen_annotations(jmodel.evidence)
       val mfi = new_mfi()
-      this.ont.add_axiom(ObjectPropertyAssertion(annotations, enabled_by, mfi, gp))
-      this.ont.add_axiom(ObjectPropertyAssertion(annotations, occurs_in, mfi, primary_ind))
+      this.ont.add_axiom(ObjectPropertyAssertion(gen_annotations(jmodel.evidence), 
+                                                  enabled_by, mfi, gp))
+      this.ont.add_axiom(ObjectPropertyAssertion(gen_annotations(jmodel.evidence),
+                                                  occurs_in, mfi, primary_ind))
     }
     if (primary_aspect == "molecular_function") {
       val annotations = gen_annotations(jmodel.evidence)
@@ -168,10 +169,11 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
     }  
   //    this.ont.add_axiom(ObjectPropertyAssertion(annotations, gp, occurs_in, mfi)  Ask!
     if (primary_aspect == "biological_process") {
-      val annotations = gen_annotations(jmodel.evidence)
       val mfi = new_mfi()
-      this.ont.add_axiom(ObjectPropertyAssertion(annotations, enabled_by, mfi, gp))
-      this.ont.add_axiom(ObjectPropertyAssertion(annotations, part_of, mfi, primary_ind))
+      this.ont.add_axiom(ObjectPropertyAssertion(gen_annotations(jmodel.evidence)
+                                                 , enabled_by, mfi, gp))
+      this.ont.add_axiom(ObjectPropertyAssertion(gen_annotations(jmodel.evidence)
+                                                 , part_of, mfi, primary_ind))
     }
   return primary_ind
   }
@@ -197,7 +199,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
       val rel = OP_lookup(k)
       for (o <- v) {
         val oi = new_typed_ind(obo_ns + o.replace(":", "_"))
-        this.ont.add_axiom(primary_ind Fact (rel, oi)) // Should these have evidence too?  
+        this.ont.add_axiom(ObjectPropertyAssertion(gen_annotations(jmodel.evidence),
+                                                  rel,primary_ind, oi)) 
       }
     }
   }
