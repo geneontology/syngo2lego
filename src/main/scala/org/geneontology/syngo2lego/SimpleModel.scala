@@ -43,11 +43,16 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
 //  val contributor = IRI.create(synGO_ns + jmodel.username.as[String])
   val comment = AnnotationProperty("http://www.w3.org/2000/01/rdf-schema#comment")
-  val contributor = "SynGO:" + jmodel.username.as[String]
+  // val contributor = "SynGO:" + jmodel.username.as[String]
+  val contributors = jmodel.username.as[String].split(';')
+  val contributor_prefix = "http://orcid.org/"
   val source = "PMID:" + jmodel.pmid.as[String]
   val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")    
 
-  this.ont.annotateOntology(Annotation (dc_contributor, contributor))
+  // this.ont.annotateOntology(Annotation (dc_contributor, contributor))
+  for (c <- contributors) {
+    this.ont.annotateOntology(Annotation (dc_contributor, contributor_prefix + c))
+  }
   val dc_date = AnnotationProperty("http://purl.org/dc/elements/1.1/date")
   
   val species = jmodel.comments.species.as[String]
@@ -76,7 +81,10 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   
   def new_ind() : OWLNamedIndividual = {
     val i = NamedIndividual(this.model_ns + java.util.UUID.randomUUID.toString)
-    this.ont.add_axiom(i Annotation (dc_contributor, contributor)) // Also needs date.
+    // this.ont.add_axiom(i Annotation (dc_contributor, contributor)) // Also needs date.
+    for (c <- contributors) {
+      this.ont.add_axiom(i Annotation (dc_contributor, contributor_prefix + c))
+    }
     this.ont.add_axiom(i Annotation (dc_date, date)) // Also needs date.    
     return i
   }
@@ -126,7 +134,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
     // Also annotates model with contributor
     // Should probably add these to the ontology too - but feels like wrong place to do it.
   ///  this.ont.add_axiom(ont.ontology Annotation(dc_source, source))
-     val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
+     // val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
+    val dc_source = AnnotationProperty(obo_ns + "SEPIO:0000124")
      var out = Set[OWLAnnotation]()  
        for ((k,v) <- jmodel.evidence.as[Map[String, Json]]) {
          // TODO annotated inds with syngo evidence codes. Needs extension to JSON.
@@ -137,6 +146,10 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
            if (!m.isEmpty) {
              val ann = new_typed_ind(obo_ns + eco.replace(":", "_")) // 
              this.ont.add_axiom(ann Annotation (dc_source, source))
+             for (c <- contributors) {
+               out += Annotation(dc_contributor, contributor_prefix + c)
+             }
+             out += Annotation(dc_date, date)
              out += Annotation(evidence, ann)
            } else {
              println(s"Ignoring ${eco} as it doesn't look like an ECO term.")
