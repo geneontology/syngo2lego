@@ -47,7 +47,9 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   val contributors = jmodel.username.as[String].split(';')
   val contributor_prefix = "http://orcid.org/"
   val source = "PMID:" + jmodel.pmid.as[String]
-  val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")    
+  val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")
+  val provided_by = AnnotationProperty("http://purl.org/pav/providedBy")
+  val provided_by_value = "SynGO-VU"
 
   // this.ont.annotateOntology(Annotation (dc_contributor, contributor))
   for (c <- contributors) {
@@ -85,7 +87,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
     for (c <- contributors) {
       this.ont.add_axiom(i Annotation (dc_contributor, contributor_prefix + c))
     }
-    this.ont.add_axiom(i Annotation (dc_date, date)) // Also needs date.    
+    this.ont.add_axiom(i Annotation (dc_date, date)) // Also needs date.
+    this.ont.add_axiom(i Annotation (provided_by, provided_by_value))
     return i
   }
   
@@ -146,10 +149,12 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
            if (!m.isEmpty) {
              val ann = new_typed_ind(obo_ns + eco.replace(":", "_")) // 
              this.ont.add_axiom(ann Annotation (dc_source, source))
+             // Adding contributor(s), date, and providedBy to all edges
              for (c <- contributors) {
                out += Annotation(dc_contributor, contributor_prefix + c)
              }
              out += Annotation(dc_date, date)
+             out += Annotation(provided_by, provided_by_value)
              out += Annotation(evidence, ann)
            } else {
              println(s"Ignoring ${eco} as it doesn't look like an ECO term.")
