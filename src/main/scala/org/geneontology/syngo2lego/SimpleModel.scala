@@ -49,7 +49,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   val source = "PMID:" + jmodel.pmid.as[String]
   val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")
   val provided_by = AnnotationProperty("http://purl.org/pav/providedBy")
-  val provided_by_value = "SynGO-VU"
+  // val provided_by_value = "SynGO-VU"
+  val provided_by_value = "https://syngo.vu.nl"
 
   // this.ont.annotateOntology(Annotation (dc_contributor, contributor))
   for (c <- contributors) {

@@ -36,7 +36,8 @@ class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: B
   val dc_date = AnnotationProperty("http://purl.org/dc/elements/1.1/date")
   val model_status = AnnotationProperty("http://geneontology.org/lego/modelstate")
   val provided_by = AnnotationProperty("http://purl.org/pav/providedBy")
-  owl_model.annotateOntology(Annotation(provided_by, "SynGO-VU"))
+  // owl_model.annotateOntology(Annotation(provided_by, "SynGO-VU"))
+  owl_model.annotateOntology(Annotation(provided_by, "https://syngo.vu.nl"))
   owl_model.annotateOntology(Annotation(title, syngo_id + test))
   // Files have no assoc date (except for in comments). So, for now at least,
   // generating here to fulfill loading requirements.
@@ -50,8 +51,22 @@ class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: B
   var file_extension = ""
   for (mod <- mods) { 
     // Add in check of JSON integrity mod
-    var sm = new SimpleModel(model_ns, owl_model, mod, GO)
-    sm.generate()
+    var skip_model = false
+    val deprecated_fields = GO.getSpecAnnotationsOnEntity(
+      query_short_form = mod.goTerm.as[String].replace(":", "_"),
+      ap_short_form = "deprecated")
+    if (deprecated_fields.length > 0) {
+      val deprecated_field = deprecated_fields.head.isDeprecatedIRIAnnotation()
+      println(deprecated_field)
+      if (deprecated_field) {
+        skip_model = true
+        println(s"Skipping ${syngo_id}.")
+      }
+    }
+    if (!skip_model) {
+      var sm = new SimpleModel(model_ns, owl_model, mod, GO)
+      sm.generate()
+    }
   }
 
   if (this.add_import_statement) {
