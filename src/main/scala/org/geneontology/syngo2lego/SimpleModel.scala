@@ -137,8 +137,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
     // Also annotates model with contributor
     // Should probably add these to the ontology too - but feels like wrong place to do it.
   ///  this.ont.add_axiom(ont.ontology Annotation(dc_source, source))
-     // val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
-    val dc_source = AnnotationProperty(obo_ns + "SEPIO:0000124")
+      val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
+    // val dc_source = AnnotationProperty(obo_ns + "SEPIO:0000124") // Not yet supported by GPAD export
      var out = Set[OWLAnnotation]()  
        for ((k,v) <- jmodel.evidence.as[Map[String, Json]]) {
          // TODO annotated inds with syngo evidence codes. Needs extension to JSON.
