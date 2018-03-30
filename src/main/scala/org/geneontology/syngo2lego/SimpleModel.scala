@@ -1,14 +1,16 @@
 package org.geneontology.syngo2lego
 
-import rapture.json._, jsonBackends.jawn._
+import rapture.json._
+import jsonBackends.jawn._
 import org.phenoscape.scowl._
 import org.semanticweb.owlapi.model.IRI
 import org.semanticweb.owlapi.model._
 import org.semanticweb.owlapi.search.EntitySearcher
 import dosumis.brainscowl.BrainScowl
 import org.semanticweb.owlapi.apibinding.OWLManager
+
 import scala.language.postfixOps
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.collection.JavaConversions._
 import collection.JavaConverters._
 import java.util.Date
@@ -23,7 +25,13 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   
   // Namespaces (In the OWL sense - AKA Base IRIs)
   val obo_ns = "http://purl.obolibrary.org/obo/"
-  val idOrg_ns = "http://identifiers.org/"
+  val idOrg_ns = "http://identifiers.org/uniprot/"
+  val idOrg_ns_lookup = Map("uniprot" -> idOrg_ns,
+      "RGD_ID" -> "http://rgd.mcw.edu/rgdweb/report/gene/main.html?id=",
+      "MGI_ID" -> "http://www.informatics.jax.org/accession/MGI:",
+      "FLYBASE_ID" -> "http://flybase.org/reports/",
+      "WORMBASE_ID" -> "http://www.wormbase.org/db/gene/gene?name=",
+      "HGNC_ID" -> idOrg_ns)
   val synGO_ns = "http://syngo.vu.nl/"
   
  // OP vals    // This should really be pulled from a config file
@@ -106,14 +114,25 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   }
   
   def new_gp(): OWLNamedIndividual = {
+
 //  return new_typed_ind(obo_ns + "UniProtKB_" + this.jmodel.uniprot.as[String])
-    return new_typed_ind(idOrg_ns + "uniprot/" + this.jmodel.uniprot.as[String])
+    val ns = idOrg_ns_lookup(this.jmodel.id_db_source.as[String])
+    return new_typed_ind(ns + this.jmodel.noctua_gene_id.as[String])
   }
 
   def new_primary_ind(): OWLNamedIndividual = {
     return new_typed_ind(obo_ns + this.jmodel.goTerm.as[String].replace(":", "_"))
   }
-  
+
+  def get_aspect(term: String): String = {
+      if (!term.startsWith("GO:")) {
+        return ""
+      }
+      val aspect = go.getSpecTextAnnotationsOnEntity(
+        query_short_form = term.replace(":", "_"),
+        ap_short_form = "hasOBONamespace").head
+      return aspect
+  }
   
   // Annotations on edges get attached to individuals - which are then used to annotate the edge
 // "evidence": { "system": [
@@ -211,15 +230,52 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
 
   val extensions = jmodel.extensions.as[List[Json]]
 
+  def sort_extensions(extension_terms: List[String]): List[String] = {
+    var sorted_list = List[String]()
+    var go_terms = ListBuffer[String]()
+    var cl_terms = ListBuffer[String]()
+    var uberon_terms = ListBuffer[String]()
+    for (term <- extension_terms) {
+      if (term.startsWith("GO:")) {
+        go_terms += term
+      } else if (term.startsWith("CL:")) {
+        cl_terms += term
+      } else if (term.startsWith("UBERON:")) {
+        uberon_terms += term
+      }
+    }
+
+    sorted_list = sorted_list ::: go_terms.toList
+    sorted_list = sorted_list ::: cl_terms.toList
+    sorted_list = sorted_list ::: uberon_terms.toList
+
+    return sorted_list
+  }
+
   def extend(primary_ind: OWLNamedIndividual, extension: Json){
     // Checks Json, uses it to extend pimary ind
     val ext = extension.as[Map[String, List[String]]]
     for ((k,v) <- ext) { 
-      val rel = OP_lookup(k)
-      for (o <- v) {
+      var rel = OP_lookup(k)
+      var previous_o = this.jmodel.goTerm.as[String]
+      var previous_aspect = primary_aspect
+      var previous_oi = primary_ind
+      // MF -occursin-> CC –occursin-> CCextension –partof-> Celltype(CL ontology) –part of-> Anatomy(Uberon ontology)
+      // val sorted_v = v.sorted // sorting should be more robust than alphabetical
+      val sorted_v = sort_extensions(v)
+      for (o <- sorted_v) {
         val oi = new_typed_ind(obo_ns + o.replace(":", "_"))
+        val oa = get_aspect(o)
+        // if previous_o is a CC term and o is UBERON, default rel to "part of"
+        if (previous_aspect == "cellular_component" & o.startsWith("UBERON:")) {
+          println("setting UBERON to part_of")
+          rel = part_of
+        }
         this.ont.add_axiom(ObjectPropertyAssertion(gen_annotations(jmodel.evidence),
-                                                  rel,primary_ind, oi)) 
+          rel, previous_oi, oi))
+        previous_o = o
+        previous_aspect = oa
+        previous_oi = oi
       }
     }
   }

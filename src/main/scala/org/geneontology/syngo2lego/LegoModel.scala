@@ -36,18 +36,21 @@ class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: B
   val dc_date = AnnotationProperty("http://purl.org/dc/elements/1.1/date")
   val model_status = AnnotationProperty("http://geneontology.org/lego/modelstate")
   val provided_by = AnnotationProperty("http://purl.org/pav/providedBy")
+  val mods = this.jmodel.models.as[List[Json]]
+  val model_ns = base + syngo_id
+
+  // val title_value = mods.head.GENENAME + "_" + aspect + "_" + mods.head.annotationid
+  val title_value = get_title()
   // owl_model.annotateOntology(Annotation(provided_by, "SynGO-VU"))
   owl_model.annotateOntology(Annotation(provided_by, "https://syngo.vu.nl"))
-  owl_model.annotateOntology(Annotation(title, syngo_id + test))
+  owl_model.annotateOntology(Annotation(title, title_value))
   // Files have no assoc date (except for in comments). So, for now at least,
   // generating here to fulfill loading requirements.
   
   val datestamp = this.jmodel.datestamp.as[String]
   owl_model.annotateOntology(Annotation(dc_date, datestamp))
   owl_model.annotateOntology(Annotation(model_status, this.jmodel.status.as[String]))
-  
-  val mods = this.jmodel.models.as[List[Json]]
-  val model_ns = base + syngo_id
+
   var file_extension = ""
   for (mod <- mods) { 
     // Add in check of JSON integrity mod
@@ -73,6 +76,31 @@ class LegoModel (val jmodel : Json, val GO : BrainScowl, add_import_statement: B
     owl_model.add_import("http://purl.obolibrary.org/obo/go/extensions/go-lego.owl")
     file_extension = ".ttl"
   }
+
   owl_model.save(syngo_id + test + ".ttl", "ttl")  // 
   owl_model.sleep()
+
+  def get_title(): String = {
+    val found_aspects = GO.getSpecTextAnnotationsOnEntity(
+      query_short_form = mods.head.goTerm.as[String].replace(":", "_"),
+      ap_short_form = "hasOBONamespace")
+    var aspect = ""
+    if (found_aspects.length > 0) {
+      aspect = found_aspects.head
+    }
+    if (aspect == "cellular_component") {
+      aspect = "CC"
+    } else if (aspect == "molecular_function") {
+      aspect = "MF"
+    } else if (aspect == "biological_process") {
+      aspect = "BP"
+    }
+    var gene_name = ""
+    try {
+      gene_name = mods.head.GENENAME.as[String]
+    } catch {
+      case gene: MissingValueException => gene_name = "SYNGO"
+    }
+    return gene_name + "_" + aspect + "_" + mods.head.annotationid.as[Int]
+  }
 }
