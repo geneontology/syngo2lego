@@ -1,4 +1,6 @@
 language: scala
 
 script:
+ - source environment.sh
+ - python3 scripts/syngo_uniprot_resolver.py -f resources/SynGO_export_test.json -o resources/SynGO_export_test.json
  - sbt "run -ni resources/SynGO_export_test.json"
