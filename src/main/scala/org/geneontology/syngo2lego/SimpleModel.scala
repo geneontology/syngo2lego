@@ -1,14 +1,16 @@
 package org.geneontology.syngo2lego
 
-import rapture.json._, jsonBackends.jawn._
+import rapture.json._
+import jsonBackends.jawn._
 import org.phenoscape.scowl._
 import org.semanticweb.owlapi.model.IRI
 import org.semanticweb.owlapi.model._
 import org.semanticweb.owlapi.search.EntitySearcher
 import dosumis.brainscowl.BrainScowl
 import org.semanticweb.owlapi.apibinding.OWLManager
+
 import scala.language.postfixOps
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.collection.JavaConversions._
 import collection.JavaConverters._
 import java.util.Date
@@ -23,7 +25,13 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   
   // Namespaces (In the OWL sense - AKA Base IRIs)
   val obo_ns = "http://purl.obolibrary.org/obo/"
-  val idOrg_ns = "http://identifiers.org/"
+  val idOrg_ns = "http://identifiers.org/uniprot/"
+  val idOrg_ns_lookup = Map("uniprot" -> idOrg_ns,
+      "RGD_ID" -> "http://rgd.mcw.edu/rgdweb/report/gene/main.html?id=",
+      "MGI_ID" -> "http://www.informatics.jax.org/accession/MGI:",
+      "FLYBASE_ID" -> "http://flybase.org/reports/",
+      "WORMBASE_ID" -> "http://www.wormbase.org/db/gene/gene?name=",
+      "HGNC_ID" -> idOrg_ns)
   val synGO_ns = "http://syngo.vu.nl/"
   
  // OP vals    // This should really be pulled from a config file
@@ -43,11 +51,19 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   val dc_contributor = AnnotationProperty("http://purl.org/dc/elements/1.1/contributor")
 //  val contributor = IRI.create(synGO_ns + jmodel.username.as[String])
   val comment = AnnotationProperty("http://www.w3.org/2000/01/rdf-schema#comment")
-  val contributor = "SynGO:" + jmodel.username.as[String]
+  // val contributor = "SynGO:" + jmodel.username.as[String]
+  val contributors = jmodel.username.as[String].split(';')
+  val contributor_prefix = "http://orcid.org/"
   val source = "PMID:" + jmodel.pmid.as[String]
-  val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")    
+  val evidence = AnnotationProperty("http://geneontology.org/lego/evidence")
+  val provided_by = AnnotationProperty("http://purl.org/pav/providedBy")
+  // val provided_by_value = "SynGO-VU"
+  val provided_by_value = "https://syngo.vu.nl"
 
-  this.ont.annotateOntology(Annotation (dc_contributor, contributor))
+  // this.ont.annotateOntology(Annotation (dc_contributor, contributor))
+  for (c <- contributors) {
+    this.ont.annotateOntology(Annotation (dc_contributor, contributor_prefix + c))
+  }
   val dc_date = AnnotationProperty("http://purl.org/dc/elements/1.1/date")
   
   val species = jmodel.comments.species.as[String]
@@ -76,8 +92,12 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   
   def new_ind() : OWLNamedIndividual = {
     val i = NamedIndividual(this.model_ns + java.util.UUID.randomUUID.toString)
-    this.ont.add_axiom(i Annotation (dc_contributor, contributor)) // Also needs date.
-    this.ont.add_axiom(i Annotation (dc_date, date)) // Also needs date.    
+    // this.ont.add_axiom(i Annotation (dc_contributor, contributor)) // Also needs date.
+    for (c <- contributors) {
+      this.ont.add_axiom(i Annotation (dc_contributor, contributor_prefix + c))
+    }
+    this.ont.add_axiom(i Annotation (dc_date, date)) // Also needs date.
+    this.ont.add_axiom(i Annotation (provided_by, provided_by_value))
     return i
   }
   
@@ -94,14 +114,25 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
   }
   
   def new_gp(): OWLNamedIndividual = {
+
 //  return new_typed_ind(obo_ns + "UniProtKB_" + this.jmodel.uniprot.as[String])
-    return new_typed_ind(idOrg_ns + "uniprot/" + this.jmodel.uniprot.as[String])
+    val ns = idOrg_ns_lookup(this.jmodel.id_db_source.as[String])
+    return new_typed_ind(ns + this.jmodel.noctua_gene_id.as[String])
   }
 
   def new_primary_ind(): OWLNamedIndividual = {
     return new_typed_ind(obo_ns + this.jmodel.goTerm.as[String].replace(":", "_"))
   }
-  
+
+  def get_aspect(term: String): String = {
+      if (!term.startsWith("GO:")) {
+        return ""
+      }
+      val aspect = go.getSpecTextAnnotationsOnEntity(
+        query_short_form = term.replace(":", "_"),
+        ap_short_form = "hasOBONamespace").head
+      return aspect
+  }
   
   // Annotations on edges get attached to individuals - which are then used to annotate the edge
 // "evidence": { "system": [
@@ -126,7 +157,8 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
     // Also annotates model with contributor
     // Should probably add these to the ontology too - but feels like wrong place to do it.
   ///  this.ont.add_axiom(ont.ontology Annotation(dc_source, source))
-     val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
+      val dc_source = AnnotationProperty("http://purl.org/dc/elements/1.1/source")
+    // val dc_source = AnnotationProperty(obo_ns + "SEPIO:0000124") // Not yet supported by GPAD export
      var out = Set[OWLAnnotation]()  
        for ((k,v) <- jmodel.evidence.as[Map[String, Json]]) {
          // TODO annotated inds with syngo evidence codes. Needs extension to JSON.
@@ -137,6 +169,12 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
            if (!m.isEmpty) {
              val ann = new_typed_ind(obo_ns + eco.replace(":", "_")) // 
              this.ont.add_axiom(ann Annotation (dc_source, source))
+             // Adding contributor(s), date, and providedBy to all edges
+             for (c <- contributors) {
+               out += Annotation(dc_contributor, contributor_prefix + c)
+             }
+             out += Annotation(dc_date, date)
+             out += Annotation(provided_by, provided_by_value)
              out += Annotation(evidence, ann)
            } else {
              println(s"Ignoring ${eco} as it doesn't look like an ECO term.")
@@ -192,15 +230,52 @@ class SimpleModel (val model_ns: String, var ont : BrainScowl,
 
   val extensions = jmodel.extensions.as[List[Json]]
 
+  def sort_extensions(extension_terms: List[String]): List[String] = {
+    var sorted_list = List[String]()
+    var go_terms = ListBuffer[String]()
+    var cl_terms = ListBuffer[String]()
+    var uberon_terms = ListBuffer[String]()
+    for (term <- extension_terms) {
+      if (term.startsWith("GO:")) {
+        go_terms += term
+      } else if (term.startsWith("CL:")) {
+        cl_terms += term
+      } else if (term.startsWith("UBERON:")) {
+        uberon_terms += term
+      }
+    }
+
+    sorted_list = sorted_list ::: go_terms.toList
+    sorted_list = sorted_list ::: cl_terms.toList
+    sorted_list = sorted_list ::: uberon_terms.toList
+
+    return sorted_list
+  }
+
   def extend(primary_ind: OWLNamedIndividual, extension: Json){
     // Checks Json, uses it to extend pimary ind
     val ext = extension.as[Map[String, List[String]]]
     for ((k,v) <- ext) { 
-      val rel = OP_lookup(k)
-      for (o <- v) {
+      var rel = OP_lookup(k)
+      var previous_o = this.jmodel.goTerm.as[String]
+      var previous_aspect = primary_aspect
+      var previous_oi = primary_ind
+      // MF -occursin-> CC –occursin-> CCextension –partof-> Celltype(CL ontology) –part of-> Anatomy(Uberon ontology)
+      // val sorted_v = v.sorted // sorting should be more robust than alphabetical
+      val sorted_v = sort_extensions(v)
+      for (o <- sorted_v) {
         val oi = new_typed_ind(obo_ns + o.replace(":", "_"))
+        val oa = get_aspect(o)
+        // if previous_o is a CC term and o is UBERON, default rel to "part of"
+        if (previous_aspect == "cellular_component" & o.startsWith("UBERON:")) {
+          println("setting UBERON to part_of")
+          rel = part_of
+        }
         this.ont.add_axiom(ObjectPropertyAssertion(gen_annotations(jmodel.evidence),
-                                                  rel,primary_ind, oi)) 
+          rel, previous_oi, oi))
+        previous_o = o
+        previous_aspect = oa
+        previous_oi = oi
       }
     }
   }
