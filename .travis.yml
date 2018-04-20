@@ -1,6 +1,10 @@
 language: scala
 sudo: required
 
+before_install:
+   - sudo apt-get update -qq
+   - sudo apt-get install -y python3-venv -qq
+
 script:
  - source environment.sh
  - python3 scripts/syngo_uniprot_resolver.py -f resources/SynGO_export_test.json -o resources/SynGO_export_test.json
