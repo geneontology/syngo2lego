@@ -1,4 +1,5 @@
 language: scala
+sudo: required
 
 script:
  - source environment.sh
